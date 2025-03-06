@@ -14,7 +14,8 @@ import {
   Settings,
   LogOut,
   Menu,
-  X
+  X,
+  Dice
 } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -90,10 +91,11 @@ const MainLayout = () => {
       <div className="flex flex-1">
         <aside className="hidden md:flex w-64 flex-col border-r px-4 py-6">
           <div className="flex items-center gap-2 mb-6 px-2">
-            <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary text-primary-foreground font-bold">
-              YY
+            <div className="flex items-center justify-center gap-1">
+              <Dice className="h-5 w-5 text-primary" />
+              <Dice className="h-5 w-5 text-primary" />
             </div>
-            <h1 className="text-lg font-bold">YeniYol</h1>
+            <h1 className="text-lg font-bold">Kumarı Bırak</h1>
           </div>
 
           <div className="flex flex-col gap-1 mb-4">
@@ -130,10 +132,11 @@ const MainLayout = () => {
         <div className="flex flex-col flex-1">
           <header className="md:hidden flex items-center justify-between border-b px-4 py-3">
             <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary text-primary-foreground font-bold">
-                YY
+              <div className="flex items-center justify-center gap-1">
+                <Dice className="h-5 w-5 text-primary" />
+                <Dice className="h-5 w-5 text-primary" />
               </div>
-              <h1 className="text-lg font-bold">YeniYol</h1>
+              <h1 className="text-lg font-bold">Kumarı Bırak</h1>
             </div>
             <div className="flex items-center gap-2">
               <ModeToggle />
@@ -146,10 +149,11 @@ const MainLayout = () => {
                 <SheetContent side="left" className="w-[240px] sm:w-[300px] p-0">
                   <div className="flex flex-col h-full">
                     <div className="flex items-center gap-2 p-4 mb-2 border-b">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary text-primary-foreground font-bold">
-                        YY
+                      <div className="flex items-center justify-center gap-1">
+                        <Dice className="h-5 w-5 text-primary" />
+                        <Dice className="h-5 w-5 text-primary" />
                       </div>
-                      <h1 className="text-lg font-bold">YeniYol</h1>
+                      <h1 className="text-lg font-bold">Kumarı Bırak</h1>
                     </div>
                     <div className="flex flex-col gap-1 px-2">
                       <NavLinks />
