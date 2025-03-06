@@ -1,4 +1,3 @@
-
 import { useUser } from "@/providers/user-provider";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,7 +13,8 @@ import {
   PlusCircle,
   Clock,
   CheckCircle2,
-  BookOpen
+  BookOpen,
+  Dices
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -30,29 +30,23 @@ const Dashboard = () => {
   const [showGoalForm, setShowGoalForm] = useState(false);
   const { toast } = useToast();
 
-  // Günlük giriş kontrolü
   useEffect(() => {
     const lastCheckIn = user.progress.lastCheckIn ? new Date(user.progress.lastCheckIn) : null;
     const today = new Date();
     
-    // Eğer son giriş bugün değilse veya hiç giriş yapılmamışsa check-in göster
     if (!lastCheckIn || 
         lastCheckIn.getDate() !== today.getDate() || 
         lastCheckIn.getMonth() !== today.getMonth() ||
         lastCheckIn.getFullYear() !== today.getFullYear()) {
-      // Kullanıcının uygulamaya ilk girişinde hemen check-in gösterme
-      // Biraz beklet ki kullanıcı dashboard'ı görsün
       setTimeout(() => {
         setShowCheckIn(true);
       }, 1000);
     }
   }, [user.progress.lastCheckIn]);
 
-  // Check-in tamamlandığında
   const handleCheckInComplete = (gambleFree: boolean) => {
     const today = new Date();
     
-    // Kullanıcının ilerleme verilerini güncelle
     updateProgress({
       lastCheckIn: today.toISOString(),
       gambleFreeDays: gambleFree 
@@ -60,12 +54,11 @@ const Dashboard = () => {
         : user.progress.gambleFreeDays,
       streakDays: gambleFree 
         ? user.progress.streakDays + 1 
-        : 0 // Eğer kumar oynadıysa, seriyi sıfırla
+        : 0
     });
 
     setShowCheckIn(false);
     
-    // Başarı bildirimleri
     if (gambleFree) {
       if ((user.progress.gambleFreeDays + 1) % 7 === 0) {
         toast({
@@ -81,26 +74,36 @@ const Dashboard = () => {
     }
   };
 
-  // Risk seviyesine göre renk belirle
   const getRiskLevelColor = () => {
     switch (user.assessment.riskLevel) {
       case 'low':
-        return 'text-green-500 bg-green-50';
+        return 'text-green-500 bg-green-100';
       case 'moderate':
-        return 'text-amber-500 bg-amber-50';
+        return 'text-amber-500 bg-amber-100';
       case 'high':
-        return 'text-red-500 bg-red-50';
+        return 'text-red-500 bg-red-100';
       default:
-        return 'text-gray-500 bg-gray-50';
+        return 'text-gray-500 bg-gray-100';
     }
   };
 
-  // Aktif hedefleri filtrele
+  const getRiskLevelText = () => {
+    switch (user.assessment.riskLevel) {
+      case 'low':
+        return 'Düşük';
+      case 'moderate':
+        return 'Orta';
+      case 'high':
+        return 'Yüksek';
+      default:
+        return 'Belirsiz';
+    }
+  };
+
   const activeGoals = user.goals.filter(goal => !goal.completed).slice(0, 3);
 
   return (
     <div className="space-y-6">
-      {/* Başlık ve hoş geldin mesajı */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Merhaba, {user.name}!</h1>
         <p className="text-muted-foreground">
@@ -108,7 +111,6 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {/* Üstteki istatistik kartları */}
       <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -144,21 +146,17 @@ const Dashboard = () => {
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold capitalize ${getRiskLevelColor()}`}>
-              {user.assessment.riskLevel === 'low' && 'Düşük'}
-              {user.assessment.riskLevel === 'moderate' && 'Orta'}
-              {user.assessment.riskLevel === 'high' && 'Yüksek'}
+            <div className={`text-2xl font-bold capitalize ${getRiskLevelColor()} px-3 py-1 rounded-full inline-block`}>
+              {getRiskLevelText()}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground mt-2">
               Değerlendirme sonucunuza göre
             </p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Ana içerik */}
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
-        {/* Günlük giriş bölümü */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -184,7 +182,6 @@ const Dashboard = () => {
               <Button 
                 onClick={() => setShowCheckIn(true)}
                 disabled={
-                  // Bugün zaten giriş yapıldıysa butonu devre dışı bırak
                   user.progress.lastCheckIn && new Date(user.progress.lastCheckIn).toDateString() === new Date().toDateString()
                 }
               >
@@ -196,7 +193,6 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Hedefler bölümü */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -243,7 +239,6 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Kaynaklar */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -276,7 +271,6 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Birikimler */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -306,10 +300,8 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      {/* Check-in dialog */}
       <DailyCheckInDialog open={showCheckIn} onOpenChange={setShowCheckIn} onComplete={handleCheckInComplete} />
       
-      {/* Hedef ekleme formu */}
       <GoalForm open={showGoalForm} onOpenChange={setShowGoalForm} />
     </div>
   );

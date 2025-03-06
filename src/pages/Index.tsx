@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useUser } from "@/providers/user-provider";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Dices } from "lucide-react";
 
 const Index = () => {
   const { user } = useUser();
@@ -24,22 +25,26 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <header className="flex items-center justify-between p-4 md:p-6">
         <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary text-primary-foreground font-bold">
-            YY
+          <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary text-primary-foreground">
+            <Dices className="h-6 w-6" />
           </div>
-          <h1 className="text-lg font-bold">YeniYol</h1>
+          <h1 className="text-lg font-bold">Kumarı Bırak</h1>
         </div>
         <ModeToggle />
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-4xl mx-auto">
         <div className="space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-            Kumar Bağımlılığını Yenmek İçin <span className="text-primary">Yeni Yolunuz</span>
-          </h1>
+          <div className="flex items-center justify-center gap-3">
+            <Dices className="h-10 w-10 text-primary" />
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Kumar Bağımlılığını Yenmek İçin <span className="text-primary">Kumarı Bırak</span>
+            </h1>
+            <Dices className="h-10 w-10 text-primary" />
+          </div>
           
           <p className="text-lg md:text-xl text-muted-foreground">
-            YeniYol, kumar bağımlılığı ile mücadele eden bireylere yapay zeka destekli, 
+            Kumarı Bırak, kumar bağımlılığı ile mücadele eden bireylere yapay zeka destekli, 
             kişiselleştirilmiş destek sunan bir uygulamadır. Sizi anlayan, yargılamayan 
             ve yolculuğunuzun her adımında yanınızda olan bir destek sistemi.
           </p>
@@ -57,7 +62,7 @@ const Index = () => {
 
       <footer className="text-center py-6 border-t">
         <p className="text-sm text-muted-foreground">
-          YeniYol &copy; {new Date().getFullYear()} - Kumar Bağımlılığı ile Mücadele
+          Kumarı Bırak &copy; {new Date().getFullYear()} - Kumar Bağımlılığı ile Mücadele
         </p>
       </footer>
     </div>

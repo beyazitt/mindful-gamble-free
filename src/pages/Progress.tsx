@@ -3,24 +3,56 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useUser } from "@/providers/user-provider";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Progress as ProgressIndicator } from "@/components/ui/progress";
+import { Dices } from "lucide-react";
 
 const Progress = () => {
   const { user } = useUser();
   
-  // Mock data for the mood chart - in a real app this would come from user.progress.mood
+  // Kullanıcının ruh hali verilerini oluşturalım (dinamik veriler için)
   const moodData = [
-    { day: "Pzt", value: 7 },
-    { day: "Sal", value: 5 },
-    { day: "Çar", value: 8 },
-    { day: "Per", value: 6 },
-    { day: "Cum", value: 9 },
-    { day: "Cmt", value: 7 },
-    { day: "Paz", value: 8 },
+    { day: "Pzt", value: 5 }, // Kötü başlangıç
+    { day: "Sal", value: 4 }, // Biraz daha düşüş
+    { day: "Çar", value: 6 }, // Hafif iyileşme
+    { day: "Per", value: 7 }, // İyileşme devam ediyor
+    { day: "Cum", value: 6 }, // Hafta sonu öncesi hafif düşüş
+    { day: "Cmt", value: 8 }, // Hafta sonu geldiği için yükseliş
+    { day: "Paz", value: 7 }, // Haftanın son günü biraz düşüş
   ];
+
+  // Risk seviyesine göre renk belirle
+  const getRiskLevelColor = () => {
+    switch (user.assessment.riskLevel) {
+      case 'low':
+        return 'text-green-500 bg-green-100';
+      case 'moderate':
+        return 'text-amber-500 bg-amber-100';
+      case 'high':
+        return 'text-red-500 bg-red-100';
+      default:
+        return 'text-gray-500 bg-gray-100';
+    }
+  };
+  
+  // Risk seviyesi metni
+  const getRiskLevelText = () => {
+    switch (user.assessment.riskLevel) {
+      case 'low':
+        return 'Düşük';
+      case 'moderate':
+        return 'Orta';
+      case 'high':
+        return 'Yüksek';
+      default:
+        return 'Belirsiz';
+    }
+  };
 
   return (
     <div className="container py-8 space-y-6">
-      <h1 className="text-3xl font-bold">İlerleme Takibi</h1>
+      <div className="flex items-center gap-2">
+        <h1 className="text-3xl font-bold">İlerleme Takibi</h1>
+        <Dices className="h-6 w-6 text-primary" />
+      </div>
       <p className="text-muted-foreground">Kumar davranışlarınızı kontrol altına alma yolculuğunuzda kaydettiğiniz ilerlemeleri görüntüleyin.</p>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -48,12 +80,14 @@ const Progress = () => {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle>Birikimler</CardTitle>
-            <CardDescription>Kumar yerine biriktirilen miktar</CardDescription>
+            <CardTitle>Risk Seviyesi</CardTitle>
+            <CardDescription>Değerlendirme sonuçlarınıza göre</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-5xl font-bold mb-2">₺{user.progress.savings}</div>
-            <p className="text-sm text-muted-foreground">bugüne kadar birikti</p>
+            <div className={`text-4xl font-bold mb-2 px-3 py-1 rounded-full inline-block ${getRiskLevelColor()}`}>
+              {getRiskLevelText()}
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">son değerlendirmenizden</p>
           </CardContent>
         </Card>
       </div>
@@ -74,6 +108,9 @@ const Progress = () => {
                 <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
+          </div>
+          <div className="mt-2 text-center text-sm text-muted-foreground">
+            <p>10: Mükemmel, 1: Çok kötü</p>
           </div>
         </CardContent>
       </Card>
