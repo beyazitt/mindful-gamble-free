@@ -6,7 +6,8 @@ const config: CapacitorConfig = {
   appName: 'mindful-gamble-free',
   webDir: 'dist',
   server: {
-    url: 'https://5e18c50b-ce85-412d-989e-6e6173938af7.lovableproject.com?forceHideBadge=true',
+    androidScheme: 'https',
+    // Remove the URL from server configuration to use the bundled web assets
     cleartext: true
   },
   // Add any additional configuration options here

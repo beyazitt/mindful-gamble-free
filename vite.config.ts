@@ -23,5 +23,8 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    // Add these to ensure proper asset bundling
+    assetsInlineLimit: 0,
+    chunkSizeWarningLimit: 1600
   }
 }));
