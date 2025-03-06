@@ -20,12 +20,12 @@ export const ResourcesCard = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="border rounded-md p-3 hover:bg-accent cursor-pointer" 
-              onClick={() => navigate("/resources")}>
+              onClick={() => window.open("https://www.yesilay.org.tr/tr/bagimliliklar/kumar-bagimliligi", "_blank")}>
           <p className="font-medium">Kumar Bağımlılığını Anlamak</p>
           <p className="text-sm text-muted-foreground">Kumar bağımlılığının psikolojik temelleri</p>
         </div>
         <div className="border rounded-md p-3 hover:bg-accent cursor-pointer"
-              onClick={() => navigate("/resources")}>
+              onClick={() => window.open("https://www.memorial.com.tr/saglik-rehberleri/kumar-bagimliligi-nedir-belirtileri-ve-tedavisi-nelerdir", "_blank")}>
           <p className="font-medium">Sağlıklı Başa Çıkma Stratejileri</p>
           <p className="text-sm text-muted-foreground">Kumar isteği ile başa çıkmanın yolları</p>
         </div>

@@ -24,25 +24,25 @@ const Resources = () => {
               icon={<BookOpen className="h-6 w-6" />}
               title="Kumar Bağımlılığını Anlamak"
               description="Kumar bağımlılığının psikolojik temelleri ve beyin üzerindeki etkileri."
-              link="#"
+              link="https://www.yesilay.org.tr/tr/bagimliliklar/kumar-bagimliligi"
             />
             <ResourceCard 
               icon={<BookOpen className="h-6 w-6" />}
-              title="İyileşme Yolculuğu: Adım Adım Rehber"
-              description="Kumar bağımlılığını aşmanın pratik adımları ve stratejileri."
-              link="#"
+              title="Kumar Bağımlılığı Tedavisi"
+              description="Kumar bağımlılığı tedavisi hakkında bilgiler ve ipuçları."
+              link="https://npistanbul.com/kumar-bagimliligi"
             />
             <ResourceCard 
               icon={<BookOpen className="h-6 w-6" />}
-              title="Tetikleyicilerle Başa Çıkma"
-              description="Kumar oynama dürtüsünü tetikleyen faktörleri tanıma ve yönetme."
-              link="#"
+              title="Bağımlılıkla Başa Çıkma Yöntemleri"
+              description="Kumar bağımlılığıyla mücadele etmenin pratik stratejileri."
+              link="https://www.memorial.com.tr/saglik-rehberleri/kumar-bagimliligi-nedir-belirtileri-ve-tedavisi-nelerdir"
             />
             <ResourceCard 
               icon={<BookOpen className="h-6 w-6" />}
-              title="Mali Hasarı Onarmak"
-              description="Kumar nedeniyle oluşan mali sorunları ele alma stratejileri."
-              link="#"
+              title="Aileler İçin Kumar Bağımlılığı Rehberi"
+              description="Kumar bağımlısı olan bir aile üyesine nasıl yardımcı olunur?"
+              link="https://www.psikiyatri.org.tr/halka-yonelik/28/kumar-oyun-bagimliligi"
             />
           </div>
         </TabsContent>
@@ -51,15 +51,27 @@ const Resources = () => {
           <div className="grid gap-6 md:grid-cols-2">
             <ResourceCard 
               icon={<Video className="h-6 w-6" />}
-              title="Bağımlılık Döngüsünü Kırmak"
-              description="Tedavi uzmanlarından kumar bağımlılığını aşma yöntemleri."
-              link="#"
+              title="Kumar Bağımlılığını Anlamak"
+              description="Dr. Kültegin Ögel ile kumar bağımlılığı üzerine kapsamlı bir röportaj."
+              link="https://www.youtube.com/watch?v=5GDxDBSC_GY"
             />
             <ResourceCard 
               icon={<Video className="h-6 w-6" />}
-              title="İyileşme Hikayeleri"
-              description="Kumar bağımlılığını aşmış kişilerin deneyimleri."
-              link="#"
+              title="Kumar ve Oyun Bağımlılığı"
+              description="Prof. Dr. Nesrin Dilbaz ile kumar bağımlılığı hakkında detaylı bilgiler."
+              link="https://www.youtube.com/watch?v=M9waTGQnLTg"
+            />
+            <ResourceCard 
+              icon={<Video className="h-6 w-6" />}
+              title="Kumar Bağımlılığından Kurtulmak"
+              description="Bağımlılıkla mücadele edip başarılı olan kişilerin hikayeleri."
+              link="https://www.youtube.com/watch?v=jtSVu1eoDZk"
+            />
+            <ResourceCard 
+              icon={<Video className="h-6 w-6" />}
+              title="Kumar Bağımlılığı Tedavisi"
+              description="Dr. Bengi Semerci ile kumar bağımlılığı tedavisi hakkında bilgiler."
+              link="https://www.youtube.com/watch?v=KZi1KEDuhR0"
             />
           </div>
         </TabsContent>
@@ -68,15 +80,27 @@ const Resources = () => {
           <div className="grid gap-6 md:grid-cols-2">
             <ResourceCard 
               icon={<Headphones className="h-6 w-6" />}
-              title="İyileşme Yolculuğu Podcast"
-              description="Kumar bağımlılığından kurtulanların hikayeleri ve uzman görüşleri."
-              link="#"
+              title="Bağımlılık Üzerine"
+              description="Psikiyatrist Dr. Aziz Mehmet Gökbakan ile bağımlılık süreçleri hakkında podcast."
+              link="https://open.spotify.com/episode/5Ef56jpGtFXIjIlxXNqhKN"
             />
             <ResourceCard 
               icon={<Headphones className="h-6 w-6" />}
-              title="Beyin ve Bağımlılık"
-              description="Bağımlılık süreçlerinin nörolojik temelleri hakkında bilimsel konuşmalar."
-              link="#"
+              title="Bağımlılıktan Çıkış Yolları"
+              description="Psikolojik danışman Gökhan Çınar ile bağımlılıktan kurtulma süreci."
+              link="https://open.spotify.com/episode/7hmDkZi7VzjUxMTvhTlcvZ"
+            />
+            <ResourceCard 
+              icon={<Headphones className="h-6 w-6" />}
+              title="Kendini Tanıma ve Bağımlılık"
+              description="Psikolog Beyhan Budak ile bağımlılık süreçleri ve öz farkındalık."
+              link="https://open.spotify.com/episode/5PWPZv4FQmsjKqnDQJZNgj"
+            />
+            <ResourceCard 
+              icon={<Headphones className="h-6 w-6" />}
+              title="Dijital Bağımlılık"
+              description="Uzman Psikolog Ayşegül Denizci ile çağımızın bağımlılık sorunları."
+              link="https://open.spotify.com/episode/5hvHCLWNyA4K6DFuQUiPRp"
             />
           </div>
         </TabsContent>
@@ -87,13 +111,13 @@ const Resources = () => {
               icon={<Download className="h-6 w-6" />}
               title="Günlük Takip Şablonu"
               description="Kumar dürtülerinizi ve tetikleyicilerinizi izlemek için indirilebilir şablon."
-              link="#"
+              link="https://www.yedam.org.tr/assets/doc/yedam-kumar-kayit-defteri.pdf"
             />
             <ResourceCard 
               icon={<Download className="h-6 w-6" />}
               title="Bütçe Planlayıcısı"
               description="Finansal durumunuzu düzenlemenize yardımcı olacak araç."
-              link="#"
+              link="https://www.paragaranti.com/finansal-saglik-programi"
             />
           </div>
         </TabsContent>
@@ -109,6 +133,11 @@ const Resources = () => {
             <h3 className="font-medium">Yeşilay Danışmanlık Merkezi (YEDAM)</h3>
             <p className="text-sm text-muted-foreground mt-1">Bağımlılık tedavisi için ücretsiz danışmanlık ve destek hizmetleri.</p>
             <p className="text-sm mt-2">Telefon: <a href="tel:115" className="text-primary">115</a></p>
+            <Button variant="link" className="px-0 mt-2" asChild>
+              <a href="https://www.yedam.org.tr/" target="_blank" rel="noopener noreferrer">
+                Web Sitesini Ziyaret Et <ExternalLink className="ml-1 h-4 w-4" />
+              </a>
+            </Button>
           </div>
           
           <div className="border p-4 rounded-lg">
@@ -119,6 +148,12 @@ const Resources = () => {
                 Web Sitesini Ziyaret Et <ExternalLink className="ml-1 h-4 w-4" />
               </a>
             </Button>
+          </div>
+          
+          <div className="border p-4 rounded-lg">
+            <h3 className="font-medium">ALO 191 Uyuşturucu ile Mücadele Danışma ve Destek Hattı</h3>
+            <p className="text-sm text-muted-foreground mt-1">Sağlık Bakanlığı'nın bağımlılıkla mücadele hattı tüm bağımlılık türlerinde destek vermektedir.</p>
+            <p className="text-sm mt-2">Telefon: <a href="tel:191" className="text-primary">191</a></p>
           </div>
         </CardContent>
       </Card>
