@@ -15,7 +15,8 @@ import {
   LogOut,
   Menu,
   X,
-  Dice
+  Dice1,
+  Dice5
 } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -92,8 +93,8 @@ const MainLayout = () => {
         <aside className="hidden md:flex w-64 flex-col border-r px-4 py-6">
           <div className="flex items-center gap-2 mb-6 px-2">
             <div className="flex items-center justify-center gap-1">
-              <Dice className="h-5 w-5 text-primary" />
-              <Dice className="h-5 w-5 text-primary" />
+              <Dice1 className="h-5 w-5 text-primary" />
+              <Dice5 className="h-5 w-5 text-primary" />
             </div>
             <h1 className="text-lg font-bold">Kumarı Bırak</h1>
           </div>
@@ -133,8 +134,8 @@ const MainLayout = () => {
           <header className="md:hidden flex items-center justify-between border-b px-4 py-3">
             <div className="flex items-center gap-2">
               <div className="flex items-center justify-center gap-1">
-                <Dice className="h-5 w-5 text-primary" />
-                <Dice className="h-5 w-5 text-primary" />
+                <Dice1 className="h-5 w-5 text-primary" />
+                <Dice5 className="h-5 w-5 text-primary" />
               </div>
               <h1 className="text-lg font-bold">Kumarı Bırak</h1>
             </div>
@@ -150,8 +151,8 @@ const MainLayout = () => {
                   <div className="flex flex-col h-full">
                     <div className="flex items-center gap-2 p-4 mb-2 border-b">
                       <div className="flex items-center justify-center gap-1">
-                        <Dice className="h-5 w-5 text-primary" />
-                        <Dice className="h-5 w-5 text-primary" />
+                        <Dice1 className="h-5 w-5 text-primary" />
+                        <Dice5 className="h-5 w-5 text-primary" />
                       </div>
                       <h1 className="text-lg font-bold">Kumarı Bırak</h1>
                     </div>
