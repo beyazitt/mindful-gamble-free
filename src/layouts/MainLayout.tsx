@@ -1,4 +1,3 @@
-
 import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useUser } from "@/providers/user-provider";
@@ -8,7 +7,6 @@ import {
   LayoutDashboard, 
   LineChart, 
   BookOpen, 
-  Users,
   MessageSquare,
   AlarmClock,
   Settings,
@@ -49,7 +47,6 @@ const MainLayout = () => {
     { name: "Ana Sayfa", href: "/dashboard", icon: LayoutDashboard },
     { name: "İlerlemem", href: "/progress", icon: LineChart },
     { name: "Kaynaklar", href: "/resources", icon: BookOpen },
-    { name: "Topluluk", href: "/community", icon: Users },
     { name: "AI Danışman", href: "/ai-advisor", icon: MessageSquare },
     { name: "Acil Yardım", href: "/emergency", icon: AlarmClock },
     { name: "Ayarlar", href: "/settings", icon: Settings },

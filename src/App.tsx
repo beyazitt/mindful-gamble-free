@@ -13,7 +13,6 @@ import Dashboard from "./pages/Dashboard";
 import Assessment from "./pages/Assessment";
 import Progress from "./pages/Progress";
 import Resources from "./pages/Resources";
-import Community from "./pages/Community";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Introduction from "./pages/Introduction";
@@ -39,7 +38,6 @@ const App = () => (
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/progress" element={<Progress />} />
                 <Route path="/resources" element={<Resources />} />
-                <Route path="/community" element={<Community />} />
                 <Route path="/ai-advisor" element={<AiAdvisor />} />
                 <Route path="/emergency" element={<EmergencyHelp />} />
                 <Route path="/settings" element={<Settings />} />
