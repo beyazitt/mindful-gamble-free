@@ -154,7 +154,7 @@ const Assessment = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [showResults, setShowResults] = useState(false);
-  const { updateAssessment, user } = useUser();
+  const { updateAssessment, user, updateUser } = useUser();
   const navigate = useNavigate();
 
   const currentQuestion = assessmentQuestions[currentQuestionIndex];
