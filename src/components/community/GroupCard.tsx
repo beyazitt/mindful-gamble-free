@@ -8,25 +8,27 @@ interface GroupCardProps {
   name: string;
   memberCount: number;
   description: string;
+  onClick?: () => void;
 }
 
-export const GroupCard = ({ name, memberCount, description }: GroupCardProps) => {
+export const GroupCard = ({ name, memberCount, description, onClick }: GroupCardProps) => {
   const { toast } = useToast();
   const [joined, setJoined] = useState(false);
   
-  const handleJoin = () => {
+  const handleJoin = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the card click event
     setJoined(!joined);
     
     toast({
-      title: joined ? "Gruptan ayrıldınız" : "Gruba katıldınız",
+      title: joined ? "Topluluktan ayrıldınız" : "Topluluğa katıldınız",
       description: joined 
-        ? `${name} grubundan başarıyla ayrıldınız.` 
-        : `${name} grubuna başarıyla katıldınız.`,
+        ? `${name} topluluğundan başarıyla ayrıldınız.` 
+        : `${name} topluluğuna başarıyla katıldınız.`,
     });
   };
   
   return (
-    <Card>
+    <Card className={onClick ? "transition-all hover:shadow-md" : ""} onClick={onClick}>
       <CardHeader>
         <CardTitle>{name}</CardTitle>
         <CardDescription>{memberCount} üye</CardDescription>
