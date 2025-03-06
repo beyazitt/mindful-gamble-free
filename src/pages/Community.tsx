@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,6 +8,7 @@ import { PostCard } from "@/components/community/PostCard";
 import { PostCreationCard } from "@/components/community/PostCreationCard";
 import { CreateGroupDialog } from "@/components/community/CreateGroupDialog";
 import { CreateEventDialog } from "@/components/community/CreateEventDialog";
+import { Button } from "@/components/ui/button";
 
 // Sample data
 const initialPosts = [
