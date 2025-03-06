@@ -1,25 +1,45 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUser } from "@/providers/user-provider";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Progress as ProgressIndicator } from "@/components/ui/progress";
-import { Dices } from "lucide-react";
+import { Dices, Trophy, Check, Clock } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useEffect } from "react";
 
 const Progress = () => {
-  const { user } = useUser();
+  const { user, updateProgress } = useUser();
+  const { toast } = useToast();
   
-  // Kullanıcının ruh hali verilerini oluşturalım (dinamik veriler için)
-  const moodData = [
-    { day: "Pzt", value: 5 }, // Kötü başlangıç
-    { day: "Sal", value: 4 }, // Biraz daha düşüş
-    { day: "Çar", value: 6 }, // Hafif iyileşme
-    { day: "Per", value: 7 }, // İyileşme devam ediyor
-    { day: "Cum", value: 6 }, // Hafta sonu öncesi hafif düşüş
-    { day: "Cmt", value: 8 }, // Hafta sonu geldiği için yükseliş
-    { day: "Paz", value: 7 }, // Haftanın son günü biraz düşüş
+  // Milestone definitions
+  const milestones = [
+    { days: 1, title: "İlk Gün", description: "Kumar oynamadan ilk günü tamamladınız" },
+    { days: 3, title: "Mini Seri", description: "3 gün kumar oynamadan durabildiniz" },
+    { days: 7, title: "1 Hafta Temiz", description: "Tam bir hafta kumar oynamadınız" },
+    { days: 14, title: "2 Hafta Güçlü", description: "İki hafta boyunca direndiniz" },
+    { days: 30, title: "1 Ay Başarı", description: "Bir ay boyunca kumarsız yaşadınız" },
+    { days: 90, title: "Çeyrek Yıl", description: "Üç ay boyunca kumar alışkanlığınızı yendiniz" },
+    { days: 180, title: "Yarım Yıl", description: "Altı ay boyunca yeni alışkanlıklar edindiniz" },
+    { days: 365, title: "1 Yıl Dönüm Noktası", description: "Tam bir yıl kumar oynamadınız!" },
   ];
 
-  // Risk seviyesine göre renk belirle
+  // Calculate completed milestones
+  const completedMilestones = milestones.filter(
+    milestone => user.progress.gambleFreeDays >= milestone.days
+  );
+
+  // Calculate recovery progress percentages based on completed milestones
+  const calculateProgressPercentage = () => {
+    const totalMilestones = milestones.length;
+    return Math.min(Math.round((completedMilestones.length / totalMilestones) * 100), 100);
+  };
+
+  // Calculate impulse control percentage based on streak days
+  const calculateImpulseControlPercentage = () => {
+    // Set max at 30 days for 100%
+    return Math.min(Math.round((user.progress.streakDays / 30) * 100), 100);
+  };
+
+  // Risk level color and text functions
   const getRiskLevelColor = () => {
     switch (user.assessment.riskLevel) {
       case 'low':
@@ -33,7 +53,6 @@ const Progress = () => {
     }
   };
   
-  // Risk seviyesi metni
   const getRiskLevelText = () => {
     switch (user.assessment.riskLevel) {
       case 'low':
@@ -46,6 +65,18 @@ const Progress = () => {
         return 'Belirsiz';
     }
   };
+
+  // Check if any new milestone reached and show a toast notification
+  useEffect(() => {
+    const lastReachedMilestone = completedMilestones[completedMilestones.length - 1];
+    
+    if (lastReachedMilestone && user.progress.gambleFreeDays === lastReachedMilestone.days) {
+      toast({
+        title: "Tebrikler! 🎉",
+        description: `${lastReachedMilestone.title} hedefine ulaştınız. ${lastReachedMilestone.description}`,
+      });
+    }
+  }, [user.progress.gambleFreeDays, completedMilestones, toast]);
 
   return (
     <div className="container py-8 space-y-6">
@@ -94,23 +125,63 @@ const Progress = () => {
       
       <Card className="mt-6">
         <CardHeader>
-          <CardTitle>Ruh Hali Takibi</CardTitle>
-          <CardDescription>Son 7 gündeki ruh haliniz</CardDescription>
+          <CardTitle className="flex items-center gap-2">
+            <Trophy className="h-5 w-5 text-amber-500" />
+            Başarı Hedefleri
+          </CardTitle>
+          <CardDescription>Kumar bağımlılığından kurtulma yolculuğunuzda ulaştığınız hedefler</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={moodData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
-                <YAxis domain={[0, 10]} />
-                <Tooltip />
-                <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="mt-2 text-center text-sm text-muted-foreground">
-            <p>10: Mükemmel, 1: Çok kötü</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {milestones.map((milestone) => {
+              const isCompleted = user.progress.gambleFreeDays >= milestone.days;
+              const isUpcoming = user.progress.gambleFreeDays >= (milestone.days / 2) && !isCompleted;
+              
+              return (
+                <div 
+                  key={milestone.days}
+                  className={`border rounded-lg p-4 transition-all ${
+                    isCompleted 
+                      ? 'border-green-200 bg-green-50 dark:bg-green-950/20 dark:border-green-900' 
+                      : isUpcoming 
+                        ? 'border-amber-200 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-900'
+                        : 'border-gray-200 bg-gray-50 dark:bg-gray-800/50 dark:border-gray-700'
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <div className={`p-1.5 rounded-full ${
+                        isCompleted 
+                          ? 'bg-green-500 text-white' 
+                          : 'bg-gray-200 text-gray-400 dark:bg-gray-700'
+                      }`}>
+                        {isCompleted ? <Check className="h-4 w-4" /> : <Clock className="h-4 w-4" />}
+                      </div>
+                      <h3 className="font-medium">{milestone.title}</h3>
+                    </div>
+                    <span className={`text-sm font-medium ${
+                      isCompleted ? 'text-green-600 dark:text-green-400' : 'text-gray-500'
+                    }`}>
+                      {milestone.days} gün
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{milestone.description}</p>
+                  {isUpcoming && !isCompleted && (
+                    <div className="mt-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                        <div 
+                          className="bg-amber-500 h-2 rounded-full" 
+                          style={{ width: `${(user.progress.gambleFreeDays / milestone.days) * 100}%` }}
+                        ></div>
+                      </div>
+                      <div className="text-xs text-right mt-1 text-amber-600 dark:text-amber-400">
+                        {user.progress.gambleFreeDays}/{milestone.days} gün
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </CardContent>
       </Card>
@@ -124,17 +195,17 @@ const Progress = () => {
           <div className="space-y-4">
             <div>
               <div className="flex justify-between mb-1">
-                <span className="text-sm font-medium">Risk Seviyesi Azaltma</span>
-                <span className="text-sm font-medium">65%</span>
+                <span className="text-sm font-medium">Hedeflere Ulaşma</span>
+                <span className="text-sm font-medium">{calculateProgressPercentage()}%</span>
               </div>
-              <ProgressIndicator value={65} className="h-2" />
+              <ProgressIndicator value={calculateProgressPercentage()} className="h-2" />
             </div>
             <div>
               <div className="flex justify-between mb-1">
                 <span className="text-sm font-medium">Dürtü Kontrolü</span>
-                <span className="text-sm font-medium">40%</span>
+                <span className="text-sm font-medium">{calculateImpulseControlPercentage()}%</span>
               </div>
-              <ProgressIndicator value={40} className="h-2" />
+              <ProgressIndicator value={calculateImpulseControlPercentage()} className="h-2" />
             </div>
             <div>
               <div className="flex justify-between mb-1">
